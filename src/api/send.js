@@ -1,4 +1,4 @@
-export default function formHandler(req, res) {
+export default async function formHandler(req, res) {
   
     const sgMail = require('@sendgrid/mail');
     sgMail.setApiKey(process.env.SENDGRID_APIKEY);
@@ -18,8 +18,12 @@ export default function formHandler(req, res) {
              <p>メッセージ：${body.formTextarea}</p>`,
     }
 
-    const results = sgMail.send(mailData)
-      .then(result => res.status(200).json(JSON.stringify(result)))
-      .catch(error => res.status(500).json(JSON.stringify(error)))
+    const responses = await sgMail.send(mailData)
+      .then(
+        responses => res.status(200).json(JSON.stringify(responses))
+      )
+      .catch(
+        error => res.status(500).json(JSON.stringify(error))
+      )
 
 }
