@@ -18,7 +18,7 @@ export default async function formHandler(req, res) {
              <p>メッセージ：${body.formTextarea}</p>`,
     }
 
-    const responses = await sgMail.send(mailData)
+    const responses = sgMail.send(mailData)
       .then(
         responses => res.status(200).json(JSON.stringify(responses))
       )
